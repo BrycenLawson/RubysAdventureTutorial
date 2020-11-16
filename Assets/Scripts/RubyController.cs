@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RubyController : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class RubyController : MonoBehaviour
     public GameObject projectilePrefab;
     
     public int health { get { return currentHealth; }}
-    int currentHealth;
+    public static int currentHealth;
     
     public float timeInvincible = 2.0f;
     bool isInvincible;
@@ -88,6 +89,12 @@ public class RubyController : MonoBehaviour
     if (character != null)
                     {
         character.DisplayDialog();
+                        {
+                            if (EnemyController.count + HardEnemyController.count >= 4)
+                            {
+                                SceneManager.LoadScene("SecondScene");
+                            }
+                        }
                     }  
                 }
             }
@@ -114,16 +121,16 @@ public class RubyController : MonoBehaviour
 
             if (isInvincible)
                 return;
-            
+
             isInvincible = true;
             invincibleTimer = timeInvincible;
         }
-        
+
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         
         UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
     }
-    
+
     void Launch()
     {
         GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
