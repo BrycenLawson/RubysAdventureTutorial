@@ -36,7 +36,6 @@ public class Projectile : MonoBehaviour
         {
             b.Fix();
         }
-    
         Destroy(gameObject);
     }
 }

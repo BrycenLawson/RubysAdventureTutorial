@@ -31,22 +31,22 @@ public class EmptyController : MonoBehaviour
         {
             winText.text = "Talk to Jambi to visit stage two!";
 
-             if (SceneManager.GetActiveScene().name == "SecondScene")
+            if (SceneManager.GetActiveScene().name == "SecondScene")
             {
                 winText.text = "WINNER! Game created by Brycen Lawson. Press R to restart.";
             }
 
             if(Input.GetKeyDown(KeyCode.R))
             {
-                if (SceneManager.GetActiveScene().name == "MainScene")
-                {
-                    SceneManager.LoadScene("MainScene");
-                    count = EnemyController.count * 0;
-                }
-
                 if (SceneManager.GetActiveScene().name == "SecondScene")
                 {
                     SceneManager.LoadScene("SecondScene");
+                    count = EnemyController.count * 0;
+                }
+
+                else
+                {
+                    SceneManager.LoadScene("MainScene");
                     count = EnemyController.count * 0;
                 }
             }

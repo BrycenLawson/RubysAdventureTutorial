@@ -32,14 +32,14 @@ public class SecondEmptyController : MonoBehaviour
             
             if(Input.GetKeyDown(KeyCode.R))
             {
-                if (SceneManager.GetActiveScene().name == "MainScene")
-                {
-                    SceneManager.LoadScene("MainScene");
-                }
-
                 if (SceneManager.GetActiveScene().name == "SecondScene")
                 {
                     SceneManager.LoadScene("SecondScene");
+                }
+
+                else
+                {
+                    SceneManager.LoadScene("MainScene");
                 }
             }
             if (Input.GetKey("escape"))

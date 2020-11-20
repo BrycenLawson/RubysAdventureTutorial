@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BackgroundMusic : MonoBehaviour
 {
@@ -17,15 +18,17 @@ void Start()
         musicSource.clip = musicClipOne;
         musicSource.Play();
         musicSource.loop = true;
-
     }
 
 void Update()
 {
     if (EnemyController.count + HardEnemyController.count >= 4)
         {
-          musicSource.clip = musicClipTwo;
-          if(!musicSource.isPlaying) musicSource.Play();
+          if (SceneManager.GetActiveScene().name == "SecondScene")
+          {
+            musicSource.clip = musicClipTwo;
+            if(!musicSource.isPlaying) musicSource.Play();
+          }
         }
 
     if (RubyController.currentHealth == 0)

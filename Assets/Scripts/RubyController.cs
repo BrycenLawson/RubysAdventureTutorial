@@ -19,6 +19,9 @@ public class RubyController : MonoBehaviour
     
     public int health { get { return currentHealth; }}
     public static int currentHealth;
+
+    public int cogs { get { return currentCogs; }}
+    public static int currentCogs;
     
     public float timeInvincible = 2.0f;
     bool isInvincible;
@@ -38,6 +41,7 @@ public class RubyController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
+        currentCogs = 4;
 
         audioSource= GetComponent<AudioSource>();
     }
@@ -76,7 +80,11 @@ public class RubyController : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.C))
         {
-            Launch();
+            if (currentCogs > 0)
+            {
+                Launch();
+                ChangeCogs(-1);
+            }
         }
         if (Input.GetKeyDown(KeyCode.X))
         {
@@ -129,6 +137,12 @@ public class RubyController : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         
         UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
+    }
+
+    public void ChangeCogs(int amount)
+    {
+        currentCogs = Mathf.Clamp(currentCogs + amount, 0, int.MaxValue);
+        Debug.Log(currentCogs + "/" + int.MaxValue);
     }
 
     void Launch()
