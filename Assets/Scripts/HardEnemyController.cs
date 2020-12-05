@@ -77,7 +77,14 @@ public class HardEnemyController : MonoBehaviour
 
         if (player != null)
         {
-            player.ChangeHealth(-2);
+            if (RubyController.currentAbility >= 1)
+            {
+                player.ChangeHealth(0);
+            }
+            else
+            {
+                player.ChangeHealth(-2);
+            }
         }
     }
     

@@ -29,30 +29,34 @@ public class EmptyController : MonoBehaviour
         countText.text = "Robots Fixed: " + count.ToString ();
         if (count >= 4)
         {
-            winText.text = "Talk to Jambi to visit stage two!";
-
-            if (SceneManager.GetActiveScene().name == "SecondScene")
+            if (GhostController.count >= 4)
             {
-                winText.text = "WINNER! Game created by Brycen Lawson. Press R to restart.";
-            }
+                winText.text = "Talk to Jambi to visit stage two!";
 
-            if(Input.GetKeyDown(KeyCode.R))
-            {
                 if (SceneManager.GetActiveScene().name == "SecondScene")
                 {
-                    SceneManager.LoadScene("SecondScene");
-                    count = EnemyController.count * 0;
-                }
+                    
+                    winText.text = "WINNER! Game created by Brycen Lawson. Press R to restart.";
 
-                else
-                {
-                    SceneManager.LoadScene("MainScene");
-                    count = EnemyController.count * 0;
+                    if(Input.GetKeyDown(KeyCode.R))
+                    {
+                        if (SceneManager.GetActiveScene().name == "SecondScene")
+                        {
+                            SceneManager.LoadScene("SecondScene");
+                            count = EnemyController.count * 0;
+                        }
+
+                        else
+                        {
+                            SceneManager.LoadScene("MainScene");
+                            count = EnemyController.count * 0;
+                        }
+                    }
+                    if (Input.GetKey("escape"))
+                    {
+                        Application.Quit();
+                    }
                 }
-            }
-            if (Input.GetKey("escape"))
-            {
-                Application.Quit();
             }
         }
     } 

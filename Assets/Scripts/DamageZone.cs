@@ -10,8 +10,15 @@ public class DamageZone : MonoBehaviour
 
         if (controller != null)
         {
+            if (RubyController.currentAbility < 1)
+            {
             controller.ChangeHealth(-5);
             Destroy(GameObject.FindWithTag("Player"));
+            }
+            if (RubyController.currentAbility >= 1)
+            {
+                
+            }
         }
     }
 }

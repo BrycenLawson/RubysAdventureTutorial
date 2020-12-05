@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class ProjectilePickup : MonoBehaviour
 {
     public AudioClip collectedClip;
@@ -15,7 +14,7 @@ public class ProjectilePickup : MonoBehaviour
 
         if (controller != null)
         {
-                controller.ChangeCogs(4);
+                controller.ChangeCogs(6);
                 GameObject pickupParticleObject = Instantiate(pickupParticlePrefab, transform.position, Quaternion.identity);
                 pickupParticleObject.GetComponent<ParticleSystem>().Play();
                 Destroy(gameObject);

@@ -30,7 +30,6 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        //remember ! inverse the test, so if broken is true !broken will be false and return won’t be executed.
         if(!broken)
         {
             return;
@@ -47,7 +46,6 @@ public class EnemyController : MonoBehaviour
     
     void FixedUpdate()
     {
-        //remember ! inverse the test, so if broken is true !broken will be false and return won’t be executed.
         if(!broken)
         {
             return;
@@ -77,7 +75,14 @@ public class EnemyController : MonoBehaviour
 
         if (player != null)
         {
-            player.ChangeHealth(-1);
+            if (RubyController.currentAbility >= 1)
+            {
+                player.ChangeHealth(0);
+            }
+            else
+            {
+                player.ChangeHealth(-1);
+            }
         }
     }
     

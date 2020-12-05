@@ -5,7 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class RubyController : MonoBehaviour
 {
+    public AudioClip soulSound;
+
     public AudioClip throwSound;
+
+    public AudioClip throw2Sound;
 
     public AudioClip hurtSound;
 
@@ -16,12 +20,17 @@ public class RubyController : MonoBehaviour
     public int maxHealth = 5;
     
     public GameObject projectilePrefab;
+
+    public GameObject projectile2Prefab;
     
     public int health { get { return currentHealth; }}
     public static int currentHealth;
 
     public int cogs { get { return currentCogs; }}
     public static int currentCogs;
+
+    public int ability { get { return currentAbility; }}
+    public static int currentAbility;
     
     public float timeInvincible = 2.0f;
     bool isInvincible;
@@ -42,6 +51,7 @@ public class RubyController : MonoBehaviour
         animator = GetComponent<Animator>();
         currentHealth = maxHealth;
         currentCogs = 4;
+        currentAbility = 0;
 
         audioSource= GetComponent<AudioSource>();
     }
@@ -78,6 +88,17 @@ public class RubyController : MonoBehaviour
         {
             Application.Quit();
         }
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            if (currentCogs > 1)
+            {
+                if (currentAbility > 0)
+                {
+                    Launch2();
+                    ChangeCogs(-2);
+                }
+            }
+        }
         if(Input.GetKeyDown(KeyCode.C))
         {
             if (currentCogs > 0)
@@ -89,19 +110,26 @@ public class RubyController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("NPC"));
-        if (hit.collider != null)
-            {
             if (hit.collider != null)
+            {
+                if (hit.collider != null)
                 {
-    NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
-    if (character != null)
+                    NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
+                    if (character != null)
                     {
-        character.DisplayDialog();
+                        character.DisplayDialog();
                         {
-                            if (EnemyController.count + HardEnemyController.count >= 4)
+                            if (SceneManager.GetActiveScene().name == "SecondScene")
                             {
-                                SceneManager.LoadScene("SecondScene");
+                                PlaySound(soulSound);
                             }
+                            else
+                            {
+                                if (EnemyController.count + HardEnemyController.count >= 4)
+                                {
+                                    SceneManager.LoadScene("SecondScene");
+                                }
+                            }  
                         }
                     }  
                 }
@@ -139,6 +167,13 @@ public class RubyController : MonoBehaviour
         UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
     }
 
+    public void ChangeAbility(int amount)
+    {
+        speed = 5.0f;
+        currentAbility = Mathf.Clamp(currentAbility + amount, 0, int.MaxValue);
+        Debug.Log(currentAbility + "/" + int.MaxValue);
+    }
+
     public void ChangeCogs(int amount)
     {
         currentCogs = Mathf.Clamp(currentCogs + amount, 0, int.MaxValue);
@@ -155,5 +190,17 @@ public class RubyController : MonoBehaviour
         animator.SetTrigger("Launch");
 
         PlaySound(throwSound);
+    }
+
+    void Launch2()
+    {
+        GameObject projectileObject = Instantiate(projectile2Prefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
+
+        Projectile2 projectile = projectileObject.GetComponent<Projectile2>();
+        projectile.Launch(lookDirection, 200);
+
+        animator.SetTrigger("Launch");
+
+        PlaySound(throw2Sound);
     }
 }

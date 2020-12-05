@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Robot
   - Projectile
+  - Ghost
   layers:
   - Default
   - TransparentFX
@@ -13,14 +14,14 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Robot
+  - Ghost
   - Character
   - Projectile
   - Confiner
   - NPC
-  - 
-  - 
+  - NPC 2
+  - Projectile2
   - 
   - 
   - 

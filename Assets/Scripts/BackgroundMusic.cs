@@ -24,10 +24,13 @@ void Update()
 {
     if (EnemyController.count + HardEnemyController.count >= 4)
         {
-          if (SceneManager.GetActiveScene().name == "SecondScene")
+          if (GhostController.count >= 4)
           {
-            musicSource.clip = musicClipTwo;
-            if(!musicSource.isPlaying) musicSource.Play();
+            if (SceneManager.GetActiveScene().name == "SecondScene")
+            {
+              musicSource.clip = musicClipTwo;
+              if(!musicSource.isPlaying) musicSource.Play();
+            }
           }
         }
 
